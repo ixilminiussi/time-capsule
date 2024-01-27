@@ -8,13 +8,18 @@ then
     exit
 fi
 
-if [ ! -f ~/.time-capsule ]
+if [ ! -d ~/.config/time-capsule ]
 then
-    touch ~/.time-capsule
+    mkdir ~/.config/time-capsule
+fi
+
+if [ ! -f ~/.config/time-capsule/capsule ]
+then
+    touch ~/.config/time-capsule/capsule
 fi
 
 DIRECTORY_MODE=false
-ARCHIVE_PATH=`cat ~/.time-capsule`
+ARCHIVE_PATH=`cat ~/.config/time-capsule/capsule`
 
 #calls appropriate functions
 while [[ $# -gt 0 ]]; do
