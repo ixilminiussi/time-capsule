@@ -13,6 +13,8 @@ then
     touch ~/.config/time-capsule.conf
 fi
 
+SCRIPT_DIR=$(dirname "$0")
+
 DIRECTORY_MODE=false
 ARCHIVE_PATH=`cat ~/.config/time-capsule.conf`
 
@@ -21,13 +23,13 @@ while [[ $# -gt 0 ]]; do
     case $1 in
         #--HELP----------------------#
         -h|--help)
-            ./commands/help.sh
+            bash "$SCRIPT_DIR/commands/help.sh"
             exit 0
             ;;
 
         #--INIT----------------------#
         -i|--init)
-            ./commands/init.sh $2
+            bash "$SCRIPT_DIR/commands/init.sh" $2
             shift
             shift
             ;;
@@ -60,14 +62,11 @@ while [[ $# -gt 0 ]]; do
 
             if [ $DIRECTORY_MODE = false ]
             then
-                ./commands/archive.sh $ARCHIVE_PATH $1
+                bash "$SCRIPT_DIR/commands/archive.sh" $ARCHIVE_PATH $1
             else
-                ./commands/archive-dir.sh $ARCHIVE_PATH $1
+                bash "$SCRIPT_DIR/commands/archive-dir.sh" $ARCHIVE_PATH $1
             fi
             shift
             ;;
     esac
 done
-
-
-

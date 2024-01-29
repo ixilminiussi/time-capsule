@@ -1,5 +1,4 @@
 #!/bin/bash
-version="1.0"
 
 if [ ! -e $2 ]
 then

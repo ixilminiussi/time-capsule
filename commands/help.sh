@@ -1,5 +1,4 @@
 #!/bin/bash
-version="1.0"
 
 echo "
 Usage: tmc [options] [file(s)]

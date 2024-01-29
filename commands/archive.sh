@@ -1,5 +1,4 @@
 #!/bin/bash
-version="1.0"
 
 if [ ! -e $2 ]
 then
@@ -12,6 +11,9 @@ then
     echo "tmc: cannot archive '$2': Use [-d|--dir] to archive directories"
     exit 2
 else
+
+    echo "$1, $2"
+
     # Get the last modification time of the file
     LAST_MODIFIED=`stat -c %y $2`
 
