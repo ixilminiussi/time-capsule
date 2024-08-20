@@ -1,16 +1,15 @@
-#!/bin/bash
+archive_dir() {
+    if [ ! -e $3 ]
+    then
+        echo "capsule: cannot archive '$3': No such file or directory"
+        exit 1
+    fi
 
-if [ ! -e $3 ]
-then
-    echo "capsule: cannot archive '$3': No such file or directory"
-    exit 1
-fi
-
-if [ -d $3 ] 
-then
-    echo "capsule: cannot archive '$3': Use [-d|--dir] to archive directories"
-    exit 2
-else
+    if [ -f $3 ]
+    then
+        echo "capsule: cannot archive '$3' : Use without [-d|--dir] to archive files"
+        exit 2
+    fi
 
     if [ $2 == true ]
     then
@@ -27,5 +26,4 @@ else
 
     mkdir -p "$1"/"$YEAR"/"$MONTH"
     mv -vn $3 "$1"/"$YEAR"/"$MONTH"
-fi
-shift
+}

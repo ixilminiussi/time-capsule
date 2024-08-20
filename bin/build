@@ -24,13 +24,26 @@ while [[ $# -gt 0 ]]; do
     case $1 in
         #--HELP----------------------#
         -h|--help)
-            sh "$SCRIPT_DIR/commands/help.sh"
+            echo "
+            Usage: capsule [options] [file(s)]
+
+            Options 
+                --help | -h
+                    See helpful commands
+                --init | -i <dir>
+                    Set permanent directory to archive to
+                --dir | -d <dir>
+                    Archive whole directory
+                    
+                <file>
+                    will mv the specified file/folder into the archive folder according to its final date of editing, and remove write permissions for non-root users.
+            "
             exit 0
             ;;
 
         #--INIT----------------------#
         -i|--init)
-            sh "$SCRIPT_DIR/commands/init.sh" $2
+            init $2
             shift
             shift
             ;;
@@ -69,9 +82,9 @@ while [[ $# -gt 0 ]]; do
 
             if [ $DIRECTORY_MODE = false ]
             then
-                sh "$SCRIPT_DIR/commands/archive.sh" $ARCHIVE_PATH $CREATION_MODE $1
+                archive $ARCHIVE_PATH $CREATION_MODE $1
             else
-                sh "$SCRIPT_DIR/commands/archive-dir.sh" $ARCHIVE_PATH $CREATION_MODE $1
+                archive-dir $ARCHIVE_PATH $CREATION_MODE $1
             fi
             shift
             ;;
