@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "
-Usage: tmc [options] [file(s)]
+Usage: capsule [options] [file(s)]
 
 Options 
     --help | -h

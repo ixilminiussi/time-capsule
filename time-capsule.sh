@@ -4,7 +4,7 @@ version="1.0"
 #validates parameter
 if [ -z $1 ]
 then 
-    echo "tmc: no files specified. try \"tmc --help\""
+    echo "capsule: no files specified. try \"capsule --help\""
     exit
 fi
 
@@ -16,6 +16,7 @@ fi
 SCRIPT_DIR=$(dirname "$0")
 
 DIRECTORY_MODE=false
+CREATION_MODE=false
 ARCHIVE_PATH=`cat ~/.config/time-capsule.conf`
 
 #calls appropriate functions
@@ -23,13 +24,13 @@ while [[ $# -gt 0 ]]; do
     case $1 in
         #--HELP----------------------#
         -h|--help)
-            bash "$SCRIPT_DIR/commands/help.sh"
+            sh "$SCRIPT_DIR/commands/help.sh"
             exit 0
             ;;
 
         #--INIT----------------------#
         -i|--init)
-            bash "$SCRIPT_DIR/commands/init.sh" $2
+            sh "$SCRIPT_DIR/commands/init.sh" $2
             shift
             shift
             ;;
@@ -37,6 +38,12 @@ while [[ $# -gt 0 ]]; do
         #--DIRECTORY-----------------#
         -d|--dir)
             DIRECTORY_MODE=true
+            shift
+            ;;
+
+        #--DIRECTORY-----------------#
+        -c|--creation)
+            CREATION_MODE=true
             shift
             ;;
 
@@ -50,21 +57,21 @@ while [[ $# -gt 0 ]]; do
         *)
             if [ ! -s $ARCHIVE_PATH ]
             then
-                echo "tmc: no archive directory specified. try \"tmc --help\""
+                echo "capsule: no archive directory specified. try \"capsule --help\""
                 exit 1
             fi
 
             if [ ! -d $ARCHIVE_PATH ]
             then
-                echo "tmc: $ARCHIVE_PATH is no longer a directory or has moved. Specify new archive directory with \"tmc [-i|--init] <directory>\""
+                echo "capsule: $ARCHIVE_PATH is no longer a directory or has moved. Specify new archive directory with \"capsule [-i|--init] <directory>\""
                 exit 1
             fi
 
             if [ $DIRECTORY_MODE = false ]
             then
-                bash "$SCRIPT_DIR/commands/archive.sh" $ARCHIVE_PATH $1
+                sh "$SCRIPT_DIR/commands/archive.sh" $ARCHIVE_PATH $CREATION_MODE $1
             else
-                bash "$SCRIPT_DIR/commands/archive-dir.sh" $ARCHIVE_PATH $1
+                sh "$SCRIPT_DIR/commands/archive-dir.sh" $ARCHIVE_PATH $CREATION_MODE $1
             fi
             shift
             ;;

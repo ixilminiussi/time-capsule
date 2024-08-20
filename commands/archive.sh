@@ -1,27 +1,31 @@
 #!/bin/bash
 
-if [ ! -e $2 ]
+if [ ! -e $3 ]
 then
-    echo "tmc: cannot archive '$2': No such file or directory"
+    echo "capsule: cannot archive '$3': No such file or directory"
     exit 1
 fi
 
-if [ -d $2 ] 
+if [ -d $3 ] 
 then
-    echo "tmc: cannot archive '$2': Use [-d|--dir] to archive directories"
+    echo "capsule: cannot archive '$3': Use [-d|--dir] to archive directories"
     exit 2
 else
 
-    echo "$1, $2"
-
-    # Get the last modification time of the file
-    LAST_MODIFIED=`stat -c %y $2`
+    if [ $2 == true ]
+    then
+        # Get the last modification time of the file
+        LAST_MODIFIED=`stat -c %w $3`
+    else
+        # Get the last modification time of the file
+        LAST_MODIFIED=`stat -c %y $3`
+    fi
 
     # Extract year and month from the last modification time
     YEAR=`date -d "$LAST_MODIFIED" +%Y`
     MONTH=`date -d "$LAST_MODIFIED" +%m`
 
     mkdir -p "$1"/"$YEAR"/"$MONTH"
-    mv -vn $2 "$1"/"$YEAR"/"$MONTH"
+    mv -vn $3 "$1"/"$YEAR"/"$MONTH"
 fi
 shift
