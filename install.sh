@@ -10,7 +10,7 @@ for script in $SCRIPT_DIR/src/commands/*.sh; do
     cat "$script" >> "$OUTPUT_FILE"
 done
 
-cat src/main.sh > "$OUTPUT_FILE"
+cat "$SCRIPT_DIR/src/main.sh" > "$OUTPUT_FILE"
 
 chmod +x "$OUTPUT_FILE"
 
