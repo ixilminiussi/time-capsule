@@ -13,8 +13,6 @@ then
     touch ~/.config/time-capsule.conf
 fi
 
-SCRIPT_DIR=$(dirname "$0")
-
 DIRECTORY_MODE=false
 CREATION_MODE=false
 ARCHIVE_PATH=`cat ~/.config/time-capsule.conf`
