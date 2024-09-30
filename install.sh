@@ -6,6 +6,11 @@ SCRIPT_DIR=$(dirname "$0")
 OUTPUT_FILE="$SCRIPT_DIR/bin/build"
 touch "$OUTPUT_FILE"
 
+echo "
+#!/bin/bash
+version="1.0"
+" >> $OUTPUT_FILE
+
 for script in $SCRIPT_DIR/src/commands/*.sh; do
     cat "$script" >> "$OUTPUT_FILE"
 done

@@ -1,6 +1,23 @@
 #!/bin/bash
 version="1.0"
 
+init() {
+    if [ -z $1 ]
+    then
+        echo "Usage: capsule --init <directory>"
+        exit
+    fi
+
+    if [ -d $1 ]
+    then
+        realpath $1 > ~/.config/time-capsule.conf
+        echo "`realpath $1` set as new archive directory!"
+    else
+        echo "capsule: cannot use '$1': No such directory"
+        exit 1
+    fi
+}
+
 #validates parameter
 if [ -z $1 ]
 then 
@@ -23,18 +40,18 @@ while [[ $# -gt 0 ]]; do
         #--HELP----------------------#
         -h|--help)
             echo "
-            Usage: capsule [options] [file(s)]
+Usage: capsule [options] [file(s)]
 
-            Options 
-                --help | -h
-                    See helpful commands
-                --init | -i <dir>
-                    Set permanent directory to archive to
-                --dir | -d <dir>
-                    Archive whole directory
-                    
-                <file>
-                    will mv the specified file/folder into the archive folder according to its final date of editing, and remove write permissions for non-root users.
+Options 
+    --help | -h
+        See helpful commands
+    --init | -i <dir>
+        Set permanent directory to archive to
+    --dir | -d <dir>
+        Archive whole directory
+        
+    <file>
+        will mv the specified file/folder into the archive folder according to its final date of editing, and remove write permissions for non-root users.
             "
             exit 0
             ;;
